@@ -16,7 +16,6 @@ export default class Web extends React.Component {
   };
 
   render() {
-    console.log('navigation', this.props.navigation);
     return (
       <View style={styles.container}>
         <WebView source={{

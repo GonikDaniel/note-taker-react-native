@@ -69,7 +69,7 @@ export default class Notes extends React.Component {
     });
 
     api.addNote(login, note)
-      .then(data => api.getNotes(login))
+      .then(_ => api.getNotes(login))
       .then(data => {
         this.setState({
           dataSource: this.ds.cloneWithRows(data)
@@ -130,7 +130,7 @@ Notes.propTypes = {
     state: PropTypes.shape({
       params: PropTypes.shape({
         userInfo: PropTypes.object.isRequired,
-        notes: PropTypes.array.isRequired,
+        notes: PropTypes.object.isRequired,
       })
     })
   }).isRequired

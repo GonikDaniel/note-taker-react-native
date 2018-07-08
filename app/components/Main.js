@@ -120,6 +120,7 @@ export default class Main extends React.Component {
           value={this.state.username}
           underlineColorAndroid="transparent"
           onChange={this.handleChange.bind(this)}
+          placeholder='Type user login...'
         />
         <TouchableHighlight
           style={styles.button}

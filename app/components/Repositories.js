@@ -42,7 +42,6 @@ export default class Repositories extends React.Component {
   }
 
   render() {
-    console.log('this.props.navigation', this.props.navigation);
     const userInfo = this.props.navigation.getParam('userInfo', {});
     const repos = this.props.navigation.getParam('repos', []);
     const reposList = repos.map((repo, index) => {
