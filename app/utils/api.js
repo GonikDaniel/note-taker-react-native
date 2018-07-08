@@ -1,11 +1,23 @@
-const API_URL = 'https://api.github.com';
+const GITHUB_API_URL = 'https://api.github.com';
+const FIREBASE_API_URL = 'https://note-taker-react-native.firebaseio.com';
 
-const request = endpoint => {
-  const url = `${API_URL}/${endpoint}`;
-  return fetch(url).then((res) => res.json());
+const request = (host, endpoint, payload) => {
+  const url = `${host}/${endpoint}`;
+  const promise = payload ? fetch(url, payload) : fetch(url);
+
+  return promise.then((res) => res.json());
 };
 
 export const api = {
-  getBio: (username) => request(`users/${username.toLowerCase().trim()}`),
-  getRepos: (username) => request(`users/${username.toLowerCase().trim()}/repos`),
+  getBio: (username) => request(GITHUB_API_URL, `users/${username.toLowerCase().trim()}`),
+  getRepos: (username) => request(GITHUB_API_URL, `users/${username.toLowerCase().trim()}/repos`),
+  getNotes: (username) => request(FIREBASE_API_URL, `${username.toLowerCase().trim()}.json`),
+  addNote: (username, note) => request(
+    FIREBASE_API_URL,
+    `${username.toLowerCase().trim()}.json`,
+    {
+      method: 'POST',
+      body: JSON.stringify(note)
+    }
+  ),
 };
