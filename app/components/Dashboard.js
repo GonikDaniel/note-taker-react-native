@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { api } from '../utils/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +54,16 @@ export default class Dashboard extends React.Component {
   }
 
   goToRepos() {
-    console.log('Go to repos');
+    api.getRepos(this.props.navigation.getParam('userInfo', {}).login)
+      .then(repos => {
+        this.props.navigation.navigate(
+          'Repos',
+          {
+            repos,
+            userInfo: this.props.navigation.getParam('userInfo', {}),
+          }
+        );
+      });
   }
 
   goToNotes() {
