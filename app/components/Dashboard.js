@@ -25,6 +25,12 @@ export default class Dashboard extends React.Component {
     };
   };
 
+  constructor(props) {
+    super(props);
+
+    this.userInfo = this.props.navigation.getParam('userInfo', {});
+  }
+
   makeBackground(btn) {
     const obj = {
       flexDirection: 'row',
@@ -47,27 +53,35 @@ export default class Dashboard extends React.Component {
   goToProfile() {
     this.props.navigation.navigate(
       'Profile',
-      {
-        userInfo: this.props.navigation.getParam('userInfo', {})
-      }
+      { userInfo: this.userInfo }
     );
   }
 
   goToRepos() {
-    api.getRepos(this.props.navigation.getParam('userInfo', {}).login)
+    api.getRepos(this.userInfo.login)
       .then(repos => {
         this.props.navigation.navigate(
           'Repos',
           {
             repos,
-            userInfo: this.props.navigation.getParam('userInfo', {}),
+            userInfo: this.userInfo,
           }
         );
       });
   }
 
   goToNotes() {
-    console.log('Go to notes');
+    api.getNotes(this.userInfo.login)
+      .then(res => {
+        const notes = res || [];
+        this.props.navigation.navigate(
+          'Notes',
+          {
+            notes,
+            userInfo: this.userInfo,
+          }
+        );
+      });
   }
 
   render() {

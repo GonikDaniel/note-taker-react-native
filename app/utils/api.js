@@ -11,11 +11,13 @@ const request = (host, endpoint, payload) => {
 export const api = {
   getBio: (username) => request(GITHUB_API_URL, `users/${username.toLowerCase().trim()}`),
   getRepos: (username) => request(GITHUB_API_URL, `users/${username.toLowerCase().trim()}/repos`),
-  getNotes: (username) => request(FIREBASE_API_URL, `${username.toLowerCase().trim()}.json`),
+  getNotes: (username) => request(
+    FIREBASE_API_URL,
+    `${username.toLowerCase().trim()}.json?auth=aJzFMWdjF54OqaoSxntQ314VKRYLnNsxiMcF6CE2`
+  ),
   addNote: (username, note) => request(
     FIREBASE_API_URL,
-    `${username.toLowerCase().trim()}.json`,
-    {
+    `${username.toLowerCase().trim()}.json?auth=aJzFMWdjF54OqaoSxntQ314VKRYLnNsxiMcF6CE2`, {
       method: 'POST',
       body: JSON.stringify(note)
     }
