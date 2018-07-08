@@ -3,6 +3,7 @@ import Main from './app/components/Main';
 import Dashboard from './app/components/Dashboard';
 import Profile from './app/components/Profile';
 import Repositories from './app/components/Repositories';
+import Web from './app/components/helpers/WebView';
 
 const App = createStackNavigator(
   {
@@ -10,6 +11,7 @@ const App = createStackNavigator(
     Dashboard: { screen: Dashboard },
     Profile: { screen: Profile },
     Repos: { screen: Repositories },
+    WebView: { screen: Web },
   },
   {
     initialRouteName: 'Home',

@@ -34,22 +34,17 @@ export default class Repositories extends React.Component {
     title: 'Repos',
   };
 
-  openPage(url) {
-    console.log('url', url);
+  openPage(source) {
+    this.props.navigation.navigate(
+      'WebView',
+      { source }
+    );
   }
 
   render() {
+    console.log('this.props.navigation', this.props.navigation);
     const userInfo = this.props.navigation.getParam('userInfo', {});
     const repos = this.props.navigation.getParam('repos', []);
-    const profileFields = [
-      'company',
-      'location',
-      'followers',
-      'following',
-      'email',
-      'bio',
-      'public_repos'
-    ];
     const reposList = repos.map((repo, index) => {
       const desc = repo.description
         ? <Text style={styles.description}>{repo.description}</Text>
@@ -80,7 +75,13 @@ export default class Repositories extends React.Component {
   }
 }
 
-Badge.propTypes = {
-  userInfo: PropTypes.object.isRequired,
-  repos: PropTypes.array.isRequired,
+Repositories.propTypes = {
+  navigation: PropTypes.shape({
+    state: PropTypes.shape({
+      params: PropTypes.shape({
+        userInfo: PropTypes.object.isRequired,
+        repos: PropTypes.array.isRequired,
+      })
+    })
+  }).isRequired
 };
